@@ -1,0 +1,271 @@
+openapi: 3.0.0
+
+info:
+  title: Go Book Recommender
+  description: A Book Recommendation System API built with Go.
+  version: 1.0.0
+
+paths:
+  /users:
+    post:
+      summary: Create a new user
+      description: Adds a new user to the system.
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: User successfully created
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        description: The id of the user to retrieve/update/delete
+        schema:
+          type: integer
+          format: int64
+    get:
+      summary: Retrieves a user's information
+      description: Returns detailed information about a specific user.
+      tags:
+        - users
+      responses:
+        200:
+          description: A user object
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Updates a user's information
+      description: Updates a user's information in the system.
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: User successfully updated
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/User'
+    delete:
+      summary: Deletes a specific user
+      tags:
+        - users
+      responses:
+        204:
+          description: User successfully deleted
+
+  /books:
+    get:
+      summary: Returns a list of books
+      description: Returns a complete list of books available in the system.
+      tags:
+        - books
+      responses:
+        200:
+          description: A JSON array of books
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Create a new book
+      description: Adds a new book to the system.
+      tags:
+        - books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Book'
+      responses:
+        201:
+          description: Book successfully created
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Book'
+
+  /books/{bookId}:
+    parameters:
+      - name: bookId
+        in: path
+        required: true
+        description: The id of the book to retrieve/update/delete
+        schema:
+          type: integer
+          format: int64
+    get:
+      summary: Returns a book by id
+      description: Returns detailed information about a specific book.
+      tags:
+        - books
+      responses:
+        200:
+          description: A book object
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Book'
+    put:
+      summary: Update a book
+      description: Updates a book's information in the system.
+      tags:
+        - books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Book'
+      responses:
+        200:
+          description: Book successfully updated
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Book'
+    delete:
+      summary: Deletes a book
+      description: Deletes a book from the system.
+      tags:
+        - books
+      responses:
+        204:
+          description: Book successfully deleted
+
+  /users/{userId}/books:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        description: The id of the user to associate with the book actions
+        schema:
+          type: integer
+          format: int64
+    get:
+      summary: Returns a list of user's books
+      description: Returns a complete list of books associated with a specific user.
+      tags:
+        - user's books
+      responses:
+        200:
+          description: A JSON array of books
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Add a new book to the user's list
+      description: Adds a new book to the user's list.
+      tags:
+        - user's books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Book'
+      responses:
+        201:
+          description: Book successfully added to the user's list
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Book'
+
+  /users/{userId}/books/{bookId}:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        description: The id of the user associated with the book actions
+        schema:
+          type: integer
+          format: int64
+      - name: bookId
+        in: path
+        required: true
+        description: The id of the book to retrieve/update/delete
+        schema:
+          type: integer
+          format: int64
+    put:
+      summary: Update a user's book
+      description: Updates information about a book in the user's list.
+      tags:
+        - user's books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Book'
+      responses:
+        200:
+          description: Book successfully updated
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Book'
+    delete:
+      summary: Deletes a user's book
+      description: Deletes a book from the user's list.
+      tags:
+        - user's books
+      responses:
+        204:
+          description: Book successfully deleted
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        author:
+          type: string
+        publicationYear:
+          type: integer
+          format: int32
+        genre:
+          type: string
+        description:
+          type: string
