@@ -6,7 +6,7 @@ Service that allows users to find book recommendations based on their past readi
 Day 1 - Project Setup, Planning, and Test Framework Setup:
 
 - [x] Initialize the GitHub repository and set up version control.
-- [ ] Set up the development environment.
+- [x] Set up the development environment.
 - [ ] Plan out REST API endpoints in detail.
 - [ ] Set up a testing framework.
 
