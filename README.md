@@ -7,8 +7,8 @@ Day 1 - Project Setup, Planning, and Test Framework Setup:
 
 - [x] Initialize the GitHub repository and set up version control.
 - [x] Set up the development environment.
+- [x] Set up a testing framework.
 - [ ] Plan out REST API endpoints in detail.
-- [ ] Set up a testing framework.
 
 Day 2 - Database Design, Setup, and Test:
 
